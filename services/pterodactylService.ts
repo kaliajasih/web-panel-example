@@ -2,15 +2,13 @@
 import { PanelData, SuccessData } from '../types';
 import { MOCK_NODES, MOCK_EGGS } from '../constants';
 
-/**
- * PENTING UNTUK INTEGRASI API ASLI:
- * 1. Gunakan Application API Key dari settings Panel Pterodactyl Anda.
- * 2. Anda perlu melakukan 2 tahap: 
- *    a. POST ke /api/application/users (buat user)
- *    b. POST ke /api/application/servers (buat server dengan user_id tersebut)
- */
 export const pterodactylService = {
   createPanel: async (data: PanelData): Promise<SuccessData> => {
+    // Validasi keberadaan API Key di console untuk memudahkan debugging (hanya di development)
+    if (!process.env.API_KEY) {
+      console.warn("Peringatan: API_KEY tidak ditemukan di environment variables.");
+    }
+
     // Simulasi delay jaringan
     await new Promise(resolve => setTimeout(resolve, 2500));
 
@@ -28,8 +26,8 @@ export const pterodactylService = {
     const nodeName = MOCK_NODES.find(n => n.id.toString() === data.nodeId)?.name || 'Unknown Node';
     const eggName = MOCK_EGGS.find(e => e.id.toString() === data.eggId)?.name || 'Unknown Egg';
     
-    // Panel URL biasanya didapat dari konfigurasi sistem/environment
-    const panelUrl = "https://panel.example.com"; 
+    // Mengambil URL Panel dari environment variable, atau default jika kosong
+    const panelUrl = process.env.PANEL_URL || "https://panel.example.com"; 
 
     return {
       username: username,
