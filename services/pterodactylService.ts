@@ -27,7 +27,7 @@ export const pterodactylService = {
     const eggName = MOCK_EGGS.find(e => e.id.toString() === data.eggId)?.name || 'Unknown Egg';
     
     // Mengambil URL Panel dari environment variable, atau default jika kosong
-    const panelUrl = process.env.PANEL_URL || "https://panel.example.com"; 
+    const panelUrl = process.env.PANEL_URL || "https://panel1week.fthnstore.qzz.io"; 
 
     return {
       username: username,
